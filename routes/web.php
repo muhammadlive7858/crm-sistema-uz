@@ -1,8 +1,12 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\KurslarController;
 use Illuminate\Support\Facades\Route;
 use PHPUnit\TextUI\XmlConfiguration\Group;
+use App\Http\Controllers\KassirlarController;
+use App\Http\Controllers\MentorlarController;
+use App\Http\Controllers\OquvchilarController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,13 +28,18 @@ Route::get('admin/category/index',function(){
 
 Route::prefix('admin')->middleware('auth')->name('admin.')->group(function(){
     // Category
-    Route::resource('category',CategoryController::class)->names('category');
+    Route::resource('kurs',KurslarController::class)->names('kurs');
     // Product
-    Route::resource('product', UserController::class)->names('product');
+    Route::resource('oquvchi', OquvchilarController::class)->names('oquvchi');
     // user
-    Route::resource('user', UserController::class)->names('user');
+    Route::resource('mentor', MentorlarController::class)->names('mentor');
     // order
-    Route::resource('order', UserController::class)->names('order');
+    Route::resource('order', OrderController::class)->names('order');
+    // kassir
+    Route::resource('kassir', KassirlarController::class)->names('kassir');
+    // adminstrotor
+    Route::resource('adminstrotor', AdminstratorlarController::class)->names('adminstrator');
+
 });
 
 

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\kurslar;
+use App\Models\mentorlar;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Return_;
 
 class KurslarController extends Controller
 {
@@ -14,7 +16,8 @@ class KurslarController extends Controller
      */
     public function index()
     {
-        //
+        $kurs = kurslar::all();
+        return view('admin/kurs/index',compact('kurs'));
     }
 
     /**
@@ -22,9 +25,10 @@ class KurslarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create($request)
+    {   
+        $mentor = mentorlar::all();
+        return view('admin.kurs.create',compact('mentor'));
     }
 
     /**
@@ -34,30 +38,26 @@ class KurslarController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        
+        $request = $this->validation($request);
+        kurslar::create([
+            'name'=>$request('name'),
+            'mentor_id'=>$request('mentor_id'),
+            'desc'=>$request('desc'),
+            'vaqt'=>$request('vaqt')
+        ]);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\kurslar  $kurslar
-     * @return \Illuminate\Http\Response
-     */
-    public function show(kurslar $kurslar)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\kurslar  $kurslar
      * @return \Illuminate\Http\Response
      */
-    public function edit(kurslar $kurslar)
-    {
-        //
+    public function edit($id)
+    {   
+        $uploaded = kurslar::all()->where('id',$id);
+        return view('admin/kurs/edit',compact('$uploaded'));
     }
 
     /**
@@ -67,9 +67,13 @@ class KurslarController extends Controller
      * @param  \App\Models\kurslar  $kurslar
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, kurslar $kurslar)
+    public function update($id,$request)
     {
-        //
+        $request = $this->validation($request);
+        $uploaded = kurslar::find($id);
+        $uploaded->update(
+            $request->input()
+        );
     }
 
     /**
@@ -78,8 +82,19 @@ class KurslarController extends Controller
      * @param  \App\Models\kurslar  $kurslar
      * @return \Illuminate\Http\Response
      */
-    public function destroy(kurslar $kurslar)
+    public function destroy($id)
     {
-        //
+        $delete = kurslar::find($id);
+        $delete->delete();
+        return redirect()->route('admin.kurs.index');
+    }
+
+    public function validation($request){
+        $request->validate([
+            'name'=>'string|min:3|max:25',
+            'mentor_id'=>'integer',
+            'desc'=>'string|min:10|max:255'
+        ]);
+        return $request;
     }
 }

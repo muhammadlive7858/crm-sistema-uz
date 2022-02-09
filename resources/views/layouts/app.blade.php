@@ -9,9 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
-    
-<link rel="stylesheet" href="assets/vendors/iconly/bold.css">
-
+    <link rel="stylesheet" href="assets/vendors/iconly/bold.css">
     <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
@@ -43,32 +41,41 @@
                 </a>
             </li>
             <li class="sidebar-item p-2 px-3">
-                    <a href="{{ route('admin.category.index') }}">
-                    <i class="bi bi-bookmark-plus"></i>
-                    <span>Category</span>
+                    <a href="{{ route('admin.kurs.index') }}">
+                    <i class="bi bi-ui-checks"></i>
+                    <span>Kurslar</span>
                 </a>
             </li>
             <li class="sidebar-item p-2 px-3">
-                    <a href="{{ route('admin.product.index') }}">
-                    <i class="bi bi-basket3"></i>
-                    <span>Product</span>
+                    <a href="{{ route('admin.mentor.index') }}">
+                    <i class="bi bi-trophy"></i>
+                    <span>Mentorlar</span>
                 </a>
             </li>
             <li class="sidebar-item p-2 px-3">
-                    <a href="{{ route('admin.user.index') }}">
-                    <i class="bi bi-headset"></i>
-                    <span>Users</span>
+                    <a href="{{ route('admin.oquvchi.index') }}">
+                    <i class="bi bi-card-list"></i>
+                    <span>O'quvchilar</span>
                 </a>
             </li>
             <li class="sidebar-item p-2 px-3">
-                    <a href="{{ route('admin.order.index') }}">
+                <a href="{{ route('admin.order.index') }}">
                     <i class="bi bi-bag-plus"></i>
-                    <span>Orders</span>
+                    <span>Orderlar</span>
                 </a>
             </li>
-            
-    
-            
+            <li class="sidebar-item p-2 px-3">
+                <a href="{{ route('admin.adminstrator.index') }}">
+                    <i class="bi bi-headset"></i>
+                    <span>Adminstrotorlar</span>
+                </a>
+            </li>
+            <li class="sidebar-item p-2 px-3">
+                <a href="{{ route('admin.kassir.index') }}">
+                    <i class="bi bi-calculator-fill "></i>
+                    <span>Kassirlar</span>
+                </a>
+            </li>
         </ul>
     </div>
     <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>

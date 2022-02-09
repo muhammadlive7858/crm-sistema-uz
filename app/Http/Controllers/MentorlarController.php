@@ -14,7 +14,8 @@ class MentorlarController extends Controller
      */
     public function index()
     {
-        //
+        $mentor = mentorlar::all();
+        return view('admin.mentor.index',compact('mentor'));
     }
 
     /**
@@ -24,7 +25,7 @@ class MentorlarController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.mentor.create');
     }
 
     /**
@@ -33,31 +34,25 @@ class MentorlarController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store($request)
+    {   
+        $request = $this->validation($request);
+        $store = mentorlar::create($request()->input());
+        if($store){
+            return redirect()->route('admin.mentor.index');
+        }
+        return redirect()->back();
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\mentorlar  $mentorlar
-     * @return \Illuminate\Http\Response
-     */
-    public function show(mentorlar $mentorlar)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\mentorlar  $mentorlar
      * @return \Illuminate\Http\Response
      */
-    public function edit(mentorlar $mentorlar)
+    public function edit($id)
     {
-        //
+        $mentor = mentorlar::all()->where('id',$id);
+        return view('admin.mentor.edit',compact('mentor'));
     }
 
     /**
@@ -67,9 +62,11 @@ class MentorlarController extends Controller
      * @param  \App\Models\mentorlar  $mentorlar
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, mentorlar $mentorlar)
+    public function update(Request $request,$id)
     {
-        //
+        $uploaded = mentorlar::find($id);
+        $uploaded = $uploaded->update($request->input());
+
     }
 
     /**
@@ -82,4 +79,12 @@ class MentorlarController extends Controller
     {
         //
     }
+    public function validation($request){
+        $request=$request->validate([
+            'name'=>'string|min:3|max:50',
+            'desc'=>'string|min:10|max:255',
+            'phone'=>'string|min:7|max:12'
+        ]);
+        return $request;
+    } 
 }
